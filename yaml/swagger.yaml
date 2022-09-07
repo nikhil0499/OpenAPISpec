@@ -13,7 +13,7 @@ info:
     url: https://license.foo.com
   version: 1.0.0
 servers:
-- url: https://mocktarget.apigee.net/v1
+- url: https://mocktarget.apigee.net
   description: dev server
 paths:
   /employees:
