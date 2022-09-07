@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  title: SmartBear HR API
+  description: An API that allows users to obtain existing information of employees
+    or post info of new empolyees
+  termsOfService: https://smartbear.com/terms-of-use
+  contact:
+    name: Nikhil Arshath A K
+    url: smartbear.com
+    email: nikhilarshath04@gmail.com
+  license:
+    name: SmartBear License
+    url: https://license.foo.com
+  version: 1.0.0
+servers:
+- url: https://dev.foo.com/v1
+  description: dev server
+- url: https:/prod.foo.com/v1
+  description: prod server
+paths:
+  /employees:
+    get:
+      description: Obtain Information About employees from HR database
+      parameters:
+      - name: bodyLimit
+        in: query
+        description: The Amount Of employees returned.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 20
+          minimum: 10
+          type: integer
+          example: 15
+      - name: pageLimit
+        in: query
+        description: The pages returned.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 5
+          minimum: 1
+          type: integer
+          example: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+    post:
+      description: Create a New Employee in the database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/employees_body'
+        required: true
+      responses:
+        "200":
+          description: Successfully Created a New Employee
+  /employees/{id}:
+    get:
+      description: Get the Employee details usind ID
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the Employee
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          example: 54
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/employees_body'
+components:
+  schemas:
+    inline_response_200:
+      properties:
+        id:
+          type: integer
+          example: 4
+        employee name:
+          type: string
+          example: Nikhil Arshath
+        employee title:
+          type: string
+          example: Systems Engineer
+    employees_body:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 4
+        employee name:
+          type: string
+          example: Nikhil Arshath
+        employee title:
+          type: string
+          example: Market Manager
